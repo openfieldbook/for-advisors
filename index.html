@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenFieldbook - AI Toolkit for Financial Advisors</title>
-    
+
     <!-- MailerLite Script -->
     <script>
         window.ml_account = window.ml_account || {};
-        (function(m, a, i, l, e, r) {
+        (function (m, a, i, l, e, r) {
             m['MailerLiteObject'] = e;
             function f() {
                 var c = { a: arguments, q: [] };
@@ -27,7 +28,7 @@
 
         ml('account', 'YOUR_MAILERLITE_ACCOUNT_ID'); // Replace with your ID
     </script>
-    
+
     <style>
         /* ===== BRAND COLORS ===== */
         :root {
@@ -37,27 +38,27 @@
             --dark: #2d1b40;
             --gray: #6c757d;
         }
-        
+
         /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: white;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* ===== HERO SECTION ===== */
         .hero {
             background: linear-gradient(135deg, var(--light) 0%, white 100%);
@@ -65,7 +66,7 @@
             text-align: center;
             border-bottom: 1px solid #eee;
         }
-        
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -73,7 +74,7 @@
             margin-bottom: 1rem;
             line-height: 1.2;
         }
-        
+
         .hero p {
             font-size: 1.5rem;
             color: var(--gray);
@@ -82,7 +83,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         /* ===== GATE FORM ===== */
         .gate-form {
             background: white;
@@ -93,11 +94,11 @@
             margin: 40px auto;
             border: 1px solid #eee;
         }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -105,7 +106,7 @@
             color: var(--dark);
             font-size: 0.95rem;
         }
-        
+
         .form-group input[type="text"],
         .form-group input[type="email"] {
             width: 100%;
@@ -115,12 +116,12 @@
             font-size: 16px;
             transition: border-color 0.3s;
         }
-        
+
         .form-group input:focus {
             outline: none;
             border-color: var(--secondary);
         }
-        
+
         .form-section-header {
             font-size: 1.1rem;
             font-weight: 600;
@@ -129,7 +130,7 @@
             padding-bottom: 8px;
             border-bottom: 2px solid var(--light);
         }
-        
+
         /* Radio Button Styling */
         .radio-options {
             display: flex;
@@ -137,7 +138,7 @@
             gap: 12px;
             margin-top: 10px;
         }
-        
+
         .radio-option {
             display: flex;
             align-items: center;
@@ -147,24 +148,24 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .radio-option:hover {
             border-color: var(--secondary);
             background: var(--light);
         }
-        
+
         .radio-option input[type="radio"] {
             margin-right: 12px;
             accent-color: var(--secondary);
         }
-        
+
         .radio-option label {
             margin: 0;
             font-weight: normal;
             cursor: pointer;
             flex: 1;
         }
-        
+
         /* Submit Button */
         .submit-btn {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -179,52 +180,52 @@
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 10px;
         }
-        
+
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(177, 110, 230, 0.3);
         }
-        
+
         .privacy-note {
             text-align: center;
             margin-top: 25px;
             font-size: 0.9rem;
             color: var(--gray);
         }
-        
+
         /* ===== VIDEO SECTION ===== */
         .video-section {
             padding: 60px 0;
             background: var(--light);
         }
-        
+
         .video-container {
             max-width: 800px;
             margin: 0 auto;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
         .video-placeholder {
             background: var(--dark);
             color: white;
             padding: 60px 20px;
             text-align: center;
         }
-        
+
         /* ===== BENEFITS SECTION ===== */
         .benefits {
             padding: 80px 0;
         }
-        
+
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .benefit-card {
             background: white;
             padding: 30px;
@@ -232,54 +233,54 @@
             border: 1px solid #eee;
             transition: transform 0.3s;
         }
-        
+
         .benefit-card:hover {
             transform: translateY(-5px);
             border-color: var(--secondary);
         }
-        
+
         .benefit-icon {
             font-size: 2.5rem;
             margin-bottom: 20px;
             color: var(--primary);
         }
-        
+
         /* ===== TESTIMONIALS ===== */
         .testimonials {
             padding: 80px 0;
             background: linear-gradient(135deg, var(--light) 0%, white 100%);
         }
-        
+
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .testimonial-card {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
+
         .testimonial-text {
             font-style: italic;
             margin-bottom: 20px;
             color: #555;
         }
-        
+
         .testimonial-author {
             font-weight: 600;
             color: var(--dark);
         }
-        
+
         .testimonial-title {
             color: var(--gray);
             font-size: 0.9rem;
         }
-        
+
         /* ===== FOOTER ===== */
         footer {
             background: var(--dark);
@@ -288,35 +289,35 @@
             text-align: center;
             margin-top: 60px;
         }
-        
+
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 700;
             color: white;
             margin-bottom: 20px;
         }
-        
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero p {
                 font-size: 1.2rem;
             }
-            
+
             .gate-form {
                 padding: 25px;
                 margin: 20px;
             }
-            
+
             .benefits-grid,
             .testimonial-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         /* ===== SUCCESS MESSAGE ===== */
         .success-message {
             display: none;
@@ -328,7 +329,7 @@
             text-align: center;
             border: 1px solid #c3e6cb;
         }
-        
+
         .error-message {
             display: none;
             background: #f8d7da;
@@ -341,19 +342,22 @@
         }
     </style>
 </head>
+
 <body>
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="container">
-            <h1>Save 15+ Hours Weekly With The Right AI Tools</h1>
-            <p>Get our free "Financial Advisor's AI Toolkit Checklist" plus the 7-Day AI Challenge email course to transform your practice</p>
-            
+            <h1>The Email Sequence That Builds Financial Literacy (And Saves You Time)</h1>
+            <p>Secure your spot for early access. Get our free "Financial Advisor's AI Toolkit Checklist" plus the 7-Day
+                AI Challenge to transform your practice.</p>
+
             <!-- VIDEO PLACEHOLDER -->
             <div class="video-container" style="margin: 40px auto;">
                 <div class="video-placeholder">
                     <div style="font-size: 3rem; margin-bottom: 20px;">▶️</div>
-                    <h3 style="color: white; margin-bottom: 10px;">Why OpenFieldbook is Different</h3>
-                    <p style="color: rgba(255,255,255,0.8);">Watch our founder explain why we built a trust infrastructure for financial communication</p>
+                    <h3 style="color: white; margin-bottom: 10px;">Bank-grade privacy without the headache</h3>
+                    <p style="color: rgba(255,255,255,0.8);">Watch how we combine time-saving tools with the security
+                        you need.</p>
                     <!-- REPLACE WITH ACTUAL VIDEO EMBED -->
                     <!-- <iframe width="100%" height="400" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
                 </div>
@@ -365,56 +369,57 @@
     <section class="container">
         <div class="gate-form">
             <h2 style="text-align: center; color: var(--dark); margin-bottom: 30px;">Download Your Free AI Toolkit</h2>
-            
+
             <!-- Success/Error Messages -->
             <div id="successMessage" class="success-message">
                 ✅ Success! Check your email to confirm your subscription. Your toolkit is unlocked below.
             </div>
-            
+
             <div id="errorMessage" class="error-message">
                 ⚠️ Please fill in all required fields
             </div>
-            
+
             <!-- MailerLite Form -->
             <div class="ml-embedded" data-form="YOUR_FORM_ID">
                 <!-- MailerLite will inject the form here -->
                 <p>Loading form...</p>
             </div>
-            
+
             <!-- Fallback HTML Form for better control -->
             <form id="advisorForm" style="display: none;">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="john@yourfirm.com" required>
                 </div>
-                
+
                 <div class="form-section-header">Practice Size</div>
-                
+
                 <div class="radio-options">
                     <div class="radio-option">
-                        <input type="radio" id="size1" name="practiceSize" value="50-100 clients (Solo or Small Team)" required>
+                        <input type="radio" id="size1" name="practiceSize" value="50-100 clients (Solo or Small Team)"
+                            required>
                         <label for="size1">50-100 clients (Solo or Small Team)</label>
                     </div>
-                    
+
                     <div class="radio-option">
                         <input type="radio" id="size2" name="practiceSize" value="100-150 clients (Growing Fast)">
                         <label for="size2">100-150 clients (Growing Fast)</label>
                     </div>
-                    
+
                     <div class="radio-option">
                         <input type="radio" id="size3" name="practiceSize" value="150+ clients (Scaling Aggressively)">
                         <label for="size3">150+ clients (Scaling Aggressively)</label>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="submit-btn">Get My Free Toolkit →</button>
             </form>
-            
+
             <div class="privacy-note">
                 🔒 We respect your privacy. Your information will never be shared.
             </div>
@@ -428,30 +433,30 @@
             <p style="text-align: center; color: var(--gray); max-width: 700px; margin: 0 auto 40px;">
                 Immediate access to our toolkit checklist plus daily emails that transform your practice in 7 days
             </p>
-            
+
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">📋</div>
-                    <h3>AI Toolkit Checklist</h3>
-                    <p>Tool assessment matrix, pricing breakdowns, and 30-day implementation roadmap</p>
+                    <h3>Phase 1: Security Foundation</h3>
+                    <p>Bank-grade encryption that protects your practice today, ready for AI tomorrow.</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">📧</div>
                     <h3>7-Day Email Challenge</h3>
                     <p>Daily actionable tasks with exact prompts you can copy/paste immediately</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">⚡</div>
-                    <h3>Save 15+ Hours Weekly</h3>
-                    <p>Meeting prep, documentation, research, and client communication automation</p>
+                    <h3>Reclaim 10+ Hours Weekly</h3>
+                    <p>Automate low-value support tasks so you can focus on high-value client relationships.</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">🎯</div>
-                    <h3>Priority Waitlist Access</h3>
-                    <p>Be first to join OpenFieldbook when we launch in 90 days</p>
+                    <h3>Advisor-First Design</h3>
+                    <p>Built specifically for independent advisors, not bloated institutional software.</p>
                 </div>
             </div>
         </div>
@@ -461,22 +466,31 @@
     <section class="testimonials">
         <div class="container">
             <h2 style="text-align: center; color: var(--dark); margin-bottom: 20px;">What Advisors Are Saying</h2>
-            
+
             <div class="testimonial-grid">
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"OpenFieldbook's visualization suite has transformed how my clients understand their portfolios. They can actually see their diversification in real-time, which helps them stay confident during market volatility. It's made portfolio reviews so much more effective."</p>
+                    <p class="testimonial-text">"OpenFieldbook's visualization suite has transformed how my clients
+                        understand their portfolios. They can actually see their diversification in real-time, which
+                        helps them stay confident during market volatility. It's made portfolio reviews so much more
+                        effective."</p>
                     <p class="testimonial-author">Michael Johnson</p>
                     <p class="testimonial-title">Senior Financial Advisor</p>
                 </div>
-                
+
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"When clients see their portfolio visualized through OpenFieldbook's dashboard, they immediately understand their diversification strategy. During the recent drawdown, my clients stayed calm because they could see exactly how their portfolio was protecting their future."</p>
+                    <p class="testimonial-text">"When clients see their portfolio visualized through OpenFieldbook's
+                        dashboard, they immediately understand their diversification strategy. During the recent
+                        drawdown, my clients stayed calm because they could see exactly how their portfolio was
+                        protecting their future."</p>
                     <p class="testimonial-author">Sarah Rodriguez</p>
                     <p class="testimonial-title">Wealth Management Partner</p>
                 </div>
-                
+
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"Sharing the OpenFieldbook dashboard with clients has elevated how we present investment strategies. The AI-powered visualizations help them see gaps in diversification and understand how we're positioning for growth while protecting what matters most."</p>
+                    <p class="testimonial-text">"Sharing the OpenFieldbook dashboard with clients has elevated how we
+                        present investment strategies. The AI-powered visualizations help them see gaps in
+                        diversification and understand how we're positioning for growth while protecting what matters
+                        most."</p>
                     <p class="testimonial-author">David Kim</p>
                     <p class="testimonial-title">Founder, Independent Advisory</p>
                 </div>
@@ -487,26 +501,30 @@
     <!-- APP PREVIEW SECTION -->
     <section class="container" style="padding: 80px 0;">
         <h2 style="text-align: center; color: var(--dark); margin-bottom: 40px;">See OpenFieldbook in Action</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
             <div style="text-align: center;">
-                <div style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
+                <div
+                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
                     📊
                 </div>
                 <h3>Portfolio Dashboard</h3>
                 <p>Real-time visualization that clients actually understand</p>
             </div>
-            
+
             <div style="text-align: center;">
-                <div style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
+                <div
+                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
                     🤖
                 </div>
                 <h3>AI Chat Interface</h3>
                 <p>Generate client reports and talking points in seconds</p>
             </div>
-            
+
             <div style="text-align: center;">
-                <div style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
+                <div
+                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
                     📄
                 </div>
                 <h3>Client Reports</h3>
@@ -520,14 +538,19 @@
         <div class="container" style="text-align: center;">
             <h2 style="color: var(--dark); margin-bottom: 20px;">Ready to Transform Your Practice?</h2>
             <p style="color: var(--gray); max-width: 600px; margin: 0 auto 30px;">
-                Join 500+ advisors who've reclaimed 15+ hours weekly and built deeper client trust
+                Join independent advisors who are reclaiming 10+ hours weekly and building deeper client trust
             </p>
-            
+            <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">
+                Free access during Limited Beta
+            </p>
+
             <!-- Simple Email Capture for Bottom -->
             <div style="max-width: 400px; margin: 0 auto;">
                 <form id="simpleForm" style="display: flex; gap: 10px;">
-                    <input type="email" placeholder="Enter your email" required style="flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 8px;">
-                    <button type="submit" style="background: var(--primary); color: white; border: none; padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    <input type="email" placeholder="Enter your email" required
+                        style="flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 8px;">
+                    <button type="submit"
+                        style="background: var(--primary); color: white; border: none; padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: 600;">
                         Get Toolkit
                     </button>
                 </form>
@@ -543,7 +566,7 @@
         <div class="container">
             <div class="footer-logo">OpenFieldbook</div>
             <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
-                Trust infrastructure for financial communication
+                Bank-grade privacy for financial communication
             </p>
             <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">
                 © 2024 OpenFieldbook. All rights reserved.
@@ -553,41 +576,41 @@
 
     <script>
         // Form handling
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('advisorForm');
             const simpleForm = document.getElementById('simpleForm');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
-            
+
             // Show the fallback form (for testing)
             form.style.display = 'block';
-            
+
             // Handle main form submission
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 const fullName = document.getElementById('fullName').value;
                 const email = document.getElementById('email').value;
                 const practiceSize = document.querySelector('input[name="practiceSize"]:checked');
-                
+
                 if (!fullName || !email || !practiceSize) {
                     errorMessage.style.display = 'block';
                     successMessage.style.display = 'none';
                     return;
                 }
-                
+
                 // In production, this would submit to MailerLite API
                 // For now, show success
                 errorMessage.style.display = 'none';
                 successMessage.style.display = 'block';
                 form.reset();
-                
+
                 // Scroll to success message
                 successMessage.scrollIntoView({ behavior: 'smooth' });
             });
-            
+
             // Handle simple form
-            simpleForm.addEventListener('submit', function(e) {
+            simpleForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const email = simpleForm.querySelector('input[type="email"]').value;
                 if (email) {
@@ -598,4 +621,5 @@
         });
     </script>
 </body>
+
 </html>
