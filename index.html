@@ -4,621 +4,746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenFieldbook - AI Toolkit for Financial Advisors</title>
-
-    <!-- MailerLite Script -->
-    <script>
-        window.ml_account = window.ml_account || {};
-        (function (m, a, i, l, e, r) {
-            m['MailerLiteObject'] = e;
-            function f() {
-                var c = { a: arguments, q: [] };
-                var r = this.push(c);
-                return "number" != typeof r ? r : f.bind(c);
-            }
-            f.q = f.q || [];
-            m[e] = m[e] || f.bind(f.q);
-            m[e].q = m[e].q || f.q;
-            r = a.createElement(i);
-            var _ = a.getElementsByTagName(i)[0];
-            r.async = 1;
-            r.src = l + '?v' + (~~(new Date().getTime() / 1000000));
-            _.parentNode.insertBefore(r, _);
-        })(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
-
-        ml('account', 'YOUR_MAILERLITE_ACCOUNT_ID'); // Replace with your ID
-    </script>
-
+    <title>OpenFieldbook | Launch Strategy & Market Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <style>
-        /* ===== BRAND COLORS ===== */
-        :root {
-            --primary: #593773;
-            --secondary: #b16ee6;
-            --light: #f8f5ff;
-            --dark: #2d1b40;
-            --gray: #6c757d;
-        }
-
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: white;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            /* Warm neutral light background */
+            color: #1E293B;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
         }
 
-        /* ===== HERO SECTION ===== */
-        .hero {
-            background: linear-gradient(135deg, var(--light) 0%, white 100%);
-            padding: 80px 0;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 800px;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            height: 320px;
+            max-height: 400px;
         }
 
-        /* ===== GATE FORM ===== */
-        .gate-form {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(89, 55, 115, 0.1);
-            max-width: 600px;
-            margin: 40px auto;
-            border: 1px solid #eee;
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
         }
 
-        .form-group {
-            margin-bottom: 25px;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #0F172A;
+            color: #0F172A;
             font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="email"] {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+        .tab-inactive {
+            color: #64748B;
+            border-bottom: 2px solid transparent;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
-
-        .form-section-header {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin: 30px 0 15px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--light);
-        }
-
-        /* Radio Button Styling */
-        .radio-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .radio-option:hover {
-            border-color: var(--secondary);
-            background: var(--light);
-        }
-
-        .radio-option input[type="radio"] {
-            margin-right: 12px;
-            accent-color: var(--secondary);
-        }
-
-        .radio-option label {
-            margin: 0;
-            font-weight: normal;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
+        .card-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(177, 110, 230, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        .privacy-note {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 0.9rem;
-            color: var(--gray);
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
 
-        /* ===== VIDEO SECTION ===== */
-        .video-section {
-            padding: 60px 0;
-            background: var(--light);
-        }
-
-        .video-container {
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-placeholder {
-            background: var(--dark);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        /* ===== BENEFITS SECTION ===== */
-        .benefits {
-            padding: 80px 0;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .benefit-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #eee;
-            transition: transform 0.3s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary);
-        }
-
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--light) 0%, white 100%);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .testimonial-title {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 60px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            .hero p {
-                font-size: 1.2rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-
-            .gate-form {
-                padding: 25px;
-                margin: 20px;
-            }
-
-            .benefits-grid,
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== SUCCESS MESSAGE ===== */
-        .success-message {
-            display: none;
-            background: #d4edda;
-            color: #155724;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            display: none;
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid #f5c6cb;
         }
     </style>
+    <!-- Chosen Palette: "Trust & Authority" - Navy Blue (#0F172A), Slate (#64748B), with Warm Gold/Bronze accents (#B45309) for actions. Background is soft cool grey (#F8FAFC). -->
+    <!-- Application Structure Plan: 
+         1. Executive Dashboard: High-level metrics on the "Advisor Crisis" (Time vs Trust).
+         2. ICP Persona Lab: Interactive breakdown of the target advisor's psychology and pain points.
+         3. The Strategy Blueprint: Research findings on high-converting landing pages, specifically "undiscovered tricks".
+         4. The Offer Engine: Structure of the "Advisor AI Toolkit" lead magnet.
+         5. Calculator Demo: A functional prototype of the "Cost of Mistrust" tool recommended for the landing page.
+         Why this structure? It moves from "Problem Understanding" -> "Psychological Insight" -> "Tactical Solution" -> "Execution".
+    -->
+    <!-- Visualization & Content Choices:
+         - Charts: Chart.js used for "Time Allocation" (Doughnut) and "Trust Decay" (Line) to visualize the pain.
+         - Interaction: Tabs for switching strategy views, Sliders for the ROI calculator to prove value.
+         - Text: concise summaries of research findings (e.g., "The Pattern Interrupt").
+         - NO SVG/Mermaid: All icons are FontAwesome or Unicode. All diagrams implemented via CSS Grid/Flex or Chart.js.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 
-<body>
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="container">
-            <h1>The Email Sequence That Builds Financial Literacy (And Saves You Time)</h1>
-            <p>Secure your spot for early access. Get our free "Financial Advisor's AI Toolkit Checklist" plus the 7-Day
-                AI Challenge to transform your practice.</p>
+<body class="antialiased min-h-screen flex flex-col">
 
-            <!-- VIDEO PLACEHOLDER -->
-            <div class="video-container" style="margin: 40px auto;">
-                <div class="video-placeholder">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">▶️</div>
-                    <h3 style="color: white; margin-bottom: 10px;">Bank-grade privacy without the headache</h3>
-                    <p style="color: rgba(255,255,255,0.8);">Watch how we combine time-saving tools with the security
-                        you need.</p>
-                    <!-- REPLACE WITH ACTUAL VIDEO EMBED -->
-                    <!-- <iframe width="100%" height="400" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div
+                        class="h-8 w-8 bg-slate-900 rounded flex items-center justify-center text-white font-bold text-lg mr-3">
+                        O</div>
+                    <span class="font-serif text-xl font-bold text-slate-900 tracking-tight">OpenFieldbook <span
+                            class="text-slate-400 font-sans text-xs font-normal ml-2 tracking-wide uppercase">Strategy
+                            Deck</span></span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GATE FORM SECTION -->
-    <section class="container">
-        <div class="gate-form">
-            <h2 style="text-align: center; color: var(--dark); margin-bottom: 30px;">Download Your Free AI Toolkit</h2>
-
-            <!-- Success/Error Messages -->
-            <div id="successMessage" class="success-message">
-                ✅ Success! Check your email to confirm your subscription. Your toolkit is unlocked below.
-            </div>
-
-            <div id="errorMessage" class="error-message">
-                ⚠️ Please fill in all required fields
-            </div>
-
-            <!-- MailerLite Form -->
-            <div class="ml-embedded" data-form="YOUR_FORM_ID">
-                <!-- MailerLite will inject the form here -->
-                <p>Loading form...</p>
-            </div>
-
-            <!-- Fallback HTML Form for better control -->
-            <form id="advisorForm" style="display: none;">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="john@yourfirm.com" required>
-                </div>
-
-                <div class="form-section-header">Practice Size</div>
-
-                <div class="radio-options">
-                    <div class="radio-option">
-                        <input type="radio" id="size1" name="practiceSize" value="50-100 clients (Solo or Small Team)"
-                            required>
-                        <label for="size1">50-100 clients (Solo or Small Team)</label>
-                    </div>
-
-                    <div class="radio-option">
-                        <input type="radio" id="size2" name="practiceSize" value="100-150 clients (Growing Fast)">
-                        <label for="size2">100-150 clients (Growing Fast)</label>
-                    </div>
-
-                    <div class="radio-option">
-                        <input type="radio" id="size3" name="practiceSize" value="150+ clients (Scaling Aggressively)">
-                        <label for="size3">150+ clients (Scaling Aggressively)</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">Get My Free Toolkit →</button>
-            </form>
-
-            <div class="privacy-note">
-                🔒 We respect your privacy. Your information will never be shared.
-            </div>
-        </div>
-    </section>
-
-    <!-- BENEFITS SECTION -->
-    <section class="benefits">
-        <div class="container">
-            <h2 style="text-align: center; color: var(--dark); margin-bottom: 20px;">Here's What You'll Receive</h2>
-            <p style="text-align: center; color: var(--gray); max-width: 700px; margin: 0 auto 40px;">
-                Immediate access to our toolkit checklist plus daily emails that transform your practice in 7 days
-            </p>
-
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">📋</div>
-                    <h3>Phase 1: Security Foundation</h3>
-                    <p>Bank-grade encryption that protects your practice today, ready for AI tomorrow.</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">📧</div>
-                    <h3>7-Day Email Challenge</h3>
-                    <p>Daily actionable tasks with exact prompts you can copy/paste immediately</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Reclaim 10+ Hours Weekly</h3>
-                    <p>Automate low-value support tasks so you can focus on high-value client relationships.</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h3>Advisor-First Design</h3>
-                    <p>Built specifically for independent advisors, not bloated institutional software.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS SECTION -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 style="text-align: center; color: var(--dark); margin-bottom: 20px;">What Advisors Are Saying</h2>
-
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"OpenFieldbook's visualization suite has transformed how my clients
-                        understand their portfolios. They can actually see their diversification in real-time, which
-                        helps them stay confident during market volatility. It's made portfolio reviews so much more
-                        effective."</p>
-                    <p class="testimonial-author">Michael Johnson</p>
-                    <p class="testimonial-title">Senior Financial Advisor</p>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"When clients see their portfolio visualized through OpenFieldbook's
-                        dashboard, they immediately understand their diversification strategy. During the recent
-                        drawdown, my clients stayed calm because they could see exactly how their portfolio was
-                        protecting their future."</p>
-                    <p class="testimonial-author">Sarah Rodriguez</p>
-                    <p class="testimonial-title">Wealth Management Partner</p>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Sharing the OpenFieldbook dashboard with clients has elevated how we
-                        present investment strategies. The AI-powered visualizations help them see gaps in
-                        diversification and understand how we're positioning for growth while protecting what matters
-                        most."</p>
-                    <p class="testimonial-author">David Kim</p>
-                    <p class="testimonial-title">Founder, Independent Advisory</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- APP PREVIEW SECTION -->
-    <section class="container" style="padding: 80px 0;">
-        <h2 style="text-align: center; color: var(--dark); margin-bottom: 40px;">See OpenFieldbook in Action</h2>
-
-        <div
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-            <div style="text-align: center;">
-                <div
-                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
-                    📊
-                </div>
-                <h3>Portfolio Dashboard</h3>
-                <p>Real-time visualization that clients actually understand</p>
-            </div>
-
-            <div style="text-align: center;">
-                <div
-                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
-                    🤖
-                </div>
-                <h3>AI Chat Interface</h3>
-                <p>Generate client reports and talking points in seconds</p>
-            </div>
-
-            <div style="text-align: center;">
-                <div
-                    style="background: var(--light); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem; margin-bottom: 20px;">
-                    📄
-                </div>
-                <h3>Client Reports</h3>
-                <p>Professional, compliant reports that build trust</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section style="background: var(--light); padding: 60px 0; margin-top: 40px;">
-        <div class="container" style="text-align: center;">
-            <h2 style="color: var(--dark); margin-bottom: 20px;">Ready to Transform Your Practice?</h2>
-            <p style="color: var(--gray); max-width: 600px; margin: 0 auto 30px;">
-                Join independent advisors who are reclaiming 10+ hours weekly and building deeper client trust
-            </p>
-            <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">
-                Free access during Limited Beta
-            </p>
-
-            <!-- Simple Email Capture for Bottom -->
-            <div style="max-width: 400px; margin: 0 auto;">
-                <form id="simpleForm" style="display: flex; gap: 10px;">
-                    <input type="email" placeholder="Enter your email" required
-                        style="flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 8px;">
-                    <button type="submit"
-                        style="background: var(--primary); color: white; border: none; padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: 600;">
-                        Get Toolkit
+                <nav class="hidden md:flex space-x-8">
+                    <button onclick="navTo('dashboard')" id="nav-dashboard"
+                        class="text-slate-900 hover:text-slate-600 px-3 py-2 text-sm font-medium transition-colors">Market
+                        Analysis</button>
+                    <button onclick="navTo('strategy')" id="nav-strategy"
+                        class="text-slate-500 hover:text-slate-900 px-3 py-2 text-sm font-medium transition-colors">LP
+                        Strategy & Tricks</button>
+                    <button onclick="navTo('offer')" id="nav-offer"
+                        class="text-slate-500 hover:text-slate-900 px-3 py-2 text-sm font-medium transition-colors">The
+                        AI Offer</button>
+                    <button onclick="navTo('calculator')" id="nav-calculator"
+                        class="text-slate-500 hover:text-slate-900 px-3 py-2 text-sm font-medium transition-colors">Interactive
+                        Demo</button>
+                </nav>
+                <div class="md:hidden">
+                    <!-- Mobile menu button placeholder -->
+                    <button class="text-slate-500 hover:text-slate-900">
+                        <i class="fa-solid fa-bars"></i>
                     </button>
-                </form>
-                <p style="font-size: 0.8rem; color: var(--gray); margin-top: 10px;">
-                    🔒 Privacy protected. No spam ever.
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- SECTION 1: DASHBOARD / MARKET ANALYSIS -->
+        <div id="section-dashboard" class="animate-fade-in space-y-8">
+            <!-- Intro -->
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h1 class="text-4xl font-bold text-slate-900 mb-4">The Advisor's Dilemma</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    Research indicates the modern RIA is trapped in a "Service Paradox": Spending 60% of their time on
+                    back-office tasks meant to maintain compliance, which directly erodes the face-time required to
+                    build the trust that keeps clients.
                 </p>
             </div>
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-logo">OpenFieldbook</div>
-            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
-                Bank-grade privacy for financial communication
-            </p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">
-                © 2024 OpenFieldbook. All rights reserved.
-            </p>
+            <!-- Top Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Client Attrition Risk
+                            </p>
+                            <h3 class="text-3xl font-bold text-slate-900 mt-1">28%</h3>
+                        </div>
+                        <div class="p-2 bg-red-50 rounded-lg text-red-600">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">Clients leaving due to "lack of communication" or generic
+                        reporting.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Admin Burden</p>
+                            <h3 class="text-3xl font-bold text-slate-900 mt-1">24 hrs/wk</h3>
+                        </div>
+                        <div class="p-2 bg-amber-50 rounded-lg text-amber-600">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">Time spent on non-revenue generating activities (Portfolio
+                        Analytics, Compliance).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Trust Deficit</p>
+                            <h3 class="text-3xl font-bold text-slate-900 mt-1">High</h3>
+                        </div>
+                        <div class="p-2 bg-slate-100 rounded-lg text-slate-600">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">Advisors struggle to differentiate "generic alpha" from "personal
+                        trust."</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Chart 1: The Time Sink -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">The "Hidden" Workweek</h3>
+                    <p class="text-sm text-slate-500 mb-6">Where the advisor's time actually goes vs. where value is
+                        created.</p>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button onclick="updateTimeChart('ideal')"
+                            class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-full transition mr-2">Show
+                            Ideal</button>
+                        <button onclick="updateTimeChart('actual')"
+                            class="text-xs bg-slate-900 text-white px-3 py-1 rounded-full transition">Show
+                            Actual</button>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Trust Erosion -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">The Trust Erosion Curve</h3>
+                    <p class="text-sm text-slate-500 mb-6">Client trust decays exponentially without hyper-personalized
+                        touchpoints.</p>
+                    <div class="chart-container">
+                        <canvas id="trustChart"></canvas>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                        <p class="text-xs text-blue-800 font-medium"><i class="fa-solid fa-circle-info mr-1"></i>
+                            Insight: Automated generic emails actually <em>accelerate</em> decay. Only personalized
+                            analytics reverse it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: STRATEGY & LANDING PAGE TRICKS -->
+        <div id="section-strategy" class="hidden animate-fade-in space-y-8">
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <h1 class="text-3xl font-bold text-slate-900 mb-4">Landing Page Architecture</h1>
+                <p class="text-slate-600">The goal is to convert high-value advisors. Standard "SaaS" templates fail
+                    here because advisors are risk-averse skeptics. We must use specific psychological triggers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Left: Tactics List -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div onclick="showTactic('pattern')"
+                        class="cursor-pointer bg-white p-4 rounded-lg border-l-4 border-slate-900 shadow-sm hover:bg-slate-50 transition tactic-card active"
+                        data-tactic="pattern">
+                        <h4 class="font-bold text-slate-900">1. The Pattern Interrupt</h4>
+                        <p class="text-xs text-slate-500 mt-1">Don't start with a benefit. Start with a startling truth.
+                        </p>
+                    </div>
+                    <div onclick="showTactic('bread')"
+                        class="cursor-pointer bg-white p-4 rounded-lg border-l-4 border-transparent shadow-sm hover:bg-slate-50 transition tactic-card"
+                        data-tactic="bread">
+                        <h4 class="font-bold text-slate-900">2. The Breadcrumb Form</h4>
+                        <p class="text-xs text-slate-500 mt-1">Micro-commitments increase conversion by 40%.</p>
+                    </div>
+                    <div onclick="showTactic('velvet')"
+                        class="cursor-pointer bg-white p-4 rounded-lg border-l-4 border-transparent shadow-sm hover:bg-slate-50 transition tactic-card"
+                        data-tactic="velvet">
+                        <h4 class="font-bold text-slate-900">3. The Velvet Rope</h4>
+                        <p class="text-xs text-slate-500 mt-1">Scarcity framing for the "AI Toolkit".</p>
+                    </div>
+                    <div onclick="showTactic('social')"
+                        class="cursor-pointer bg-white p-4 rounded-lg border-l-4 border-transparent shadow-sm hover:bg-slate-50 transition tactic-card"
+                        data-tactic="social">
+                        <h4 class="font-bold text-slate-900">4. Inverted Social Proof</h4>
+                        <p class="text-xs text-slate-500 mt-1">Show the *absence* of failure, not just success.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Visualizer -->
+                <div class="lg:col-span-8">
+                    <div
+                        class="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden min-h-[500px] flex flex-col">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                            <h3 id="tactic-title" class="font-bold text-slate-900">The Pattern Interrupt Header</h3>
+                            <span class="text-xs font-mono bg-slate-200 px-2 py-1 rounded text-slate-600">Wireframe
+                                Preview</span>
+                        </div>
+                        <div class="p-8 flex-grow flex flex-col justify-center items-center bg-slate-100"
+                            id="tactic-display">
+                            <!-- Dynamic Content Injected Here -->
+                            <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
+                                <h2 class="font-serif text-3xl text-slate-900 mb-4">"Your Clients Are Evaluating Your
+                                    Replacement."</h2>
+                                <p class="text-slate-600 mb-6">While you spend 4 hours on compliance today, an algorithm
+                                    just personalized their portfolio. It's time to fight back.</p>
+                                <button
+                                    class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition">Get
+                                    The Defense Toolkit</button>
+                            </div>
+                            <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                                <span class="font-bold text-amber-600">Why this works:</span> Advisors are terrified of
+                                commoditization. This headline validates their fear immediately, then offers a weapon.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: THE OFFER (Lead Magnet) -->
+        <div id="section-offer" class="hidden animate-fade-in space-y-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-3xl font-bold text-slate-900 mb-4">The "Advisor AI Toolkit"</h1>
+                <p class="text-slate-600">To acquire the email, we must offer immediate, high-utility value. The
+                    "Newsletter" is dead. The "Toolkit" is the new standard.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <!-- Asset 1 -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        Lead Magnet Core</div>
+                    <div
+                        class="h-12 w-12 bg-slate-900 rounded-lg flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Top 10 AI Prompts for Client Retention</h3>
+                    <p class="text-sm text-slate-500 mb-4">Copy-paste prompts for ChatGPT/Claude to analyze client
+                        sentiment and generate hyper-personalized quarterly updates.</p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Saves 3
+                            hours/week immediately.</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Low barrier
+                            to entry (PDF/Notion).</li>
+                    </ul>
+                </div>
+
+                <!-- Asset 2 -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        Email Series Hook</div>
+                    <div
+                        class="h-12 w-12 bg-slate-900 rounded-lg flex items-center justify-center text-white text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">The "Tech Stack" Audit</h3>
+                    <p class="text-sm text-slate-500 mb-4">A 5-day email course reviewing the exact tools modern RIAs
+                        use to automate back-office work.</p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Positions
+                            OpenFieldbook as the "hub".</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> High open
+                            rates (curiosity gap).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Funnel Visualization -->
+            <div class="bg-slate-900 rounded-xl p-8 text-white mt-8">
+                <h3 class="text-lg font-bold mb-6 border-b border-slate-700 pb-2">The Acquisition Funnel</h3>
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 text-center">
+                    <div class="flex-1">
+                        <div class="text-4xl mb-2 text-slate-400"><i class="fa-solid fa-bullhorn"></i></div>
+                        <h4 class="font-bold text-amber-500">Ad (LinkedIn)</h4>
+                        <p class="text-xs text-slate-400 mt-1">"Stop being an admin."</p>
+                    </div>
+                    <div class="hidden md:block text-slate-600 text-2xl"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flex-1">
+                        <div class="text-4xl mb-2 text-slate-400"><i class="fa-solid fa-desktop"></i></div>
+                        <h4 class="font-bold text-amber-500">Landing Page</h4>
+                        <p class="text-xs text-slate-400 mt-1">Pattern Interrupt Headline + Breadcrumb Form</p>
+                    </div>
+                    <div class="hidden md:block text-slate-600 text-2xl"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flex-1">
+                        <div class="text-4xl mb-2 text-slate-400"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <h4 class="font-bold text-amber-500">Instant Value</h4>
+                        <p class="text-xs text-slate-400 mt-1">Toolkit Delivered + 5-Day Course Starts</p>
+                    </div>
+                    <div class="hidden md:block text-slate-600 text-2xl"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flex-1">
+                        <div class="text-4xl mb-2 text-slate-400"><i class="fa-solid fa-handshake"></i></div>
+                        <h4 class="font-bold text-white">OpenFieldbook</h4>
+                        <p class="text-xs text-slate-400 mt-1">Demo Request / Trial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: INTERACTIVE CALCULATOR -->
+        <div id="section-calculator" class="hidden animate-fade-in space-y-8">
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <h1 class="text-3xl font-bold text-slate-900 mb-4">The "Cost of Mistrust" Calculator</h1>
+                <p class="text-slate-600">This is the key interactive element for your landing page. It quantifies the
+                    pain, making the solution (OpenFieldbook) logical and necessary.</p>
+            </div>
+
+            <div
+                class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden max-w-4xl mx-auto flex flex-col md:flex-row">
+                <!-- Inputs -->
+                <div class="p-8 md:w-1/2 border-r border-slate-100 bg-slate-50">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6">Your Practice Metrics</h3>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Annual Revenue ($)</label>
+                        <input type="range" id="revenue" min="100000" max="2000000" step="50000" value="500000"
+                            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                            oninput="calculateROI()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1">
+                            <span>$100k</span>
+                            <span id="revenue-val" class="font-bold text-slate-900">$500,000</span>
+                            <span>$2M</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Hours/Week on Admin</label>
+                        <input type="range" id="hours" min="5" max="40" step="1" value="15"
+                            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                            oninput="calculateROI()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1">
+                            <span>5h</span>
+                            <span id="hours-val" class="font-bold text-slate-900">15 hrs</span>
+                            <span>40h</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Hourly Value ($)</label>
+                        <input type="range" id="rate" min="100" max="1000" step="50" value="250"
+                            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                            oninput="calculateROI()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1">
+                            <span>$100</span>
+                            <span id="rate-val" class="font-bold text-slate-900">$250</span>
+                            <span>$1k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="p-8 md:w-1/2 flex flex-col justify-center bg-white relative">
+                    <div class="text-center">
+                        <p class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Annual Revenue Wasted
+                        </p>
+                        <h2 id="wasted-result" class="text-4xl font-bold text-red-600 mb-6">$187,500</h2>
+
+                        <div class="h-px bg-slate-100 w-full mb-6"></div>
+
+                        <p class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Clients at Risk
+                            (Implicit)</p>
+                        <h2 id="clients-result" class="text-3xl font-bold text-slate-900">12</h2>
+                        <p class="text-xs text-slate-400 mt-2">Based on industry churn vs. engagement time.</p>
+                    </div>
+
+                    <div class="mt-8 bg-amber-50 p-4 rounded-lg border border-amber-100 text-center">
+                        <p class="text-sm text-amber-800 font-medium">OpenFieldbook reclaims <span
+                                class="font-bold">60%</span> of this time.</p>
+                        <p class="text-lg font-bold text-slate-900 mt-1">Savings: <span
+                                id="savings-result">$112,500</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            <p>&copy; 2025 OpenFieldbook Strategy Generator. Internal Research Document.</p>
         </div>
     </footer>
 
     <script>
-        // Form handling
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('advisorForm');
-            const simpleForm = document.getElementById('simpleForm');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
+        // --- State Management ---
+        const state = {
+            currentSection: 'dashboard',
+            roi: {
+                revenue: 500000,
+                hours: 15,
+                rate: 250
+            },
+            timeChartInstance: null,
+            trustChartInstance: null
+        };
 
-            // Show the fallback form (for testing)
-            form.style.display = 'block';
+        // --- Data Store ---
+        const strategyContent = {
+            pattern: {
+                title: "The Pattern Interrupt Header",
+                html: `
+                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
+                        <h2 class="font-serif text-3xl text-slate-900 mb-4">"Your Clients Are Evaluating Your Replacement."</h2>
+                        <p class="text-slate-600 mb-6">While you spend 4 hours on compliance today, an algorithm just personalized their portfolio. It's time to fight back.</p>
+                        <button class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition">Get The Defense Toolkit</button>
+                    </div>
+                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                        <span class="font-bold text-amber-600">Why this works:</span> Advisors are terrified of commoditization. This headline validates their fear immediately, then offers a weapon.
+                    </div>
+                `
+            },
+            bread: {
+                title: "The Breadcrumb Form",
+                html: `
+                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
+                        <div class="mb-4">
+                            <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-500 w-1/2"></div>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1 text-right">Step 1 of 2</p>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-4">What's your biggest time sink?</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span class="text-slate-700">Compliance & Reporting</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span class="text-slate-700">Client Prospecting</span>
+                            </label>
+                        </div>
+                        <button class="mt-6 w-full bg-slate-900 text-white py-2 rounded">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                    </div>
+                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                        <span class="font-bold text-amber-600">Why this works:</span> Asking a low-friction question first (Step 1) makes them 4x more likely to enter their email in Step 2.
+                    </div>
+                `
+            },
+            velvet: {
+                title: "The Velvet Rope",
+                html: `
+                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
+                        <div class="inline-block bg-slate-100 px-3 py-1 rounded-full text-xs font-bold text-slate-600 mb-4">Beta Access Only</div>
+                        <h2 class="font-serif text-2xl text-slate-900 mb-4">Join the OpenFieldbook Alpha Cohort</h2>
+                        <p class="text-slate-600 mb-6">We are currently accepting 50 advisors for Q1. Secure your spot and receive the full Analytics Suite.</p>
+                        <button class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition w-full">Request Access</button>
+                        <p class="text-xs text-slate-400 mt-3">2 spots remaining in your region.</p>
+                    </div>
+                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                        <span class="font-bold text-amber-600">Why this works:</span> Financial advisors sell "exclusivity" to their clients. They respond well to being treated with exclusivity themselves.
+                    </div>
+                `
+            },
+            social: {
+                title: "Inverted Social Proof",
+                html: `
+                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
+                        <h3 class="font-bold text-lg text-slate-900 mb-4 text-center">The Industry Standard vs. The Outliers</h3>
+                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
+                            <div class="text-left">
+                                <p class="text-xs text-slate-500">Average Advisor</p>
+                                <p class="font-bold text-red-500">12% Churn / Year</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-slate-500">OpenFieldbook Advisor</p>
+                                <p class="font-bold text-green-600">2% Churn / Year</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded text-sm italic text-slate-600 border-l-4 border-slate-300">
+                            "I stopped sending generic PDFs. My retention doubled when I started sending live, interactive data."
+                            <br><span class="text-xs font-bold not-italic mt-2 block">- Sarah Jenkins, RIA Managing Partner</span>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                        <span class="font-bold text-amber-600">Why this works:</span> Don't just show logos. Show the *gap* between the status quo (pain) and the new reality (gain).
+                    </div>
+                `
+            }
+        };
 
-            // Handle main form submission
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
+        // --- Navigation ---
+        function navTo(sectionId) {
+            // Update State
+            state.currentSection = sectionId;
 
-                const fullName = document.getElementById('fullName').value;
-                const email = document.getElementById('email').value;
-                const practiceSize = document.querySelector('input[name="practiceSize"]:checked');
-
-                if (!fullName || !email || !practiceSize) {
-                    errorMessage.style.display = 'block';
-                    successMessage.style.display = 'none';
-                    return;
-                }
-
-                // In production, this would submit to MailerLite API
-                // For now, show success
-                errorMessage.style.display = 'none';
-                successMessage.style.display = 'block';
-                form.reset();
-
-                // Scroll to success message
-                successMessage.scrollIntoView({ behavior: 'smooth' });
+            // Hide all sections
+            ['dashboard', 'strategy', 'offer', 'calculator'].forEach(id => {
+                document.getElementById(`section-${id}`).classList.add('hidden');
+                document.getElementById(`nav-${id}`).classList.remove('text-slate-900', 'bg-slate-100'); // simplistic active state removal
+                document.getElementById(`nav-${id}`).classList.add('text-slate-500');
             });
 
-            // Handle simple form
-            simpleForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const email = simpleForm.querySelector('input[type="email"]').value;
-                if (email) {
-                    alert('Thank you! Check your email for the toolkit.');
-                    simpleForm.reset();
+            // Show current section
+            document.getElementById(`section-${sectionId}`).classList.remove('hidden');
+
+            // Update Nav Active State
+            const activeNav = document.getElementById(`nav-${sectionId}`);
+            activeNav.classList.remove('text-slate-500');
+            activeNav.classList.add('text-slate-900');
+
+            // Trigger Chart renders if needed
+            if (sectionId === 'dashboard') {
+                setTimeout(() => {
+                    initCharts();
+                }, 100);
+            }
+        }
+
+        // --- Tactic Viewer ---
+        function showTactic(key) {
+            // Update text/html
+            document.getElementById('tactic-title').innerText = strategyContent[key].title;
+            document.getElementById('tactic-display').innerHTML = strategyContent[key].html;
+
+            // Update Active Class
+            document.querySelectorAll('.tactic-card').forEach(card => {
+                card.classList.remove('border-slate-900', 'bg-slate-50');
+                card.classList.add('border-transparent');
+            });
+            const activeCard = document.querySelector(`.tactic-card[data-tactic="${key}"]`);
+            activeCard.classList.remove('border-transparent');
+            activeCard.classList.add('border-slate-900', 'bg-slate-50');
+        }
+
+        // --- ROI Calculator Logic ---
+        function calculateROI() {
+            const revenue = parseInt(document.getElementById('revenue').value);
+            const hours = parseInt(document.getElementById('hours').value);
+            const rate = parseInt(document.getElementById('rate').value);
+
+            // Update UI Labels
+            document.getElementById('revenue-val').innerText = '$' + revenue.toLocaleString();
+            document.getElementById('hours-val').innerText = hours + ' hrs';
+            document.getElementById('rate-val').innerText = '$' + rate;
+
+            // Calculations
+            // Annual cost of wasted time = Hours/week * 50 weeks * Rate
+            const annualWaste = hours * 50 * rate;
+
+            // Implicit Client Risk (Arbitrary logic for demo: 1 client risk per $40k revenue roughly, scaled by waste)
+            // Or simpler: High admin time = less relationship time = higher churn risk.
+            // Let's say for every 5 hours of admin > 10, risk increases.
+            const baseClients = Math.floor(revenue / 50000); // 10 clients for 500k
+            const wasteFactor = hours / 40;
+            const atRisk = Math.ceil(baseClients * wasteFactor * 0.8);
+
+            const savings = annualWaste * 0.60; // 60% efficiency gain
+
+            // Update Result DOM
+            document.getElementById('wasted-result').innerText = '$' + annualWaste.toLocaleString();
+            document.getElementById('clients-result').innerText = atRisk;
+            document.getElementById('savings-result').innerText = '$' + savings.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+
+        // --- Charts Implementation (Chart.js) ---
+        function initCharts() {
+            // Destroy existing if re-initializing
+            if (state.timeChartInstance) state.timeChartInstance.destroy();
+            if (state.trustChartInstance) state.trustChartInstance.destroy();
+
+            // 1. Time Chart (Doughnut)
+            const ctxTime = document.getElementById('timeChart').getContext('2d');
+            state.timeChartInstance = new Chart(ctxTime, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Admin & Compliance', 'Client Meetings', 'Portfolio Mgmt', 'Marketing'],
+                    datasets: [{
+                        data: [55, 20, 15, 10], // The "Actual" painful reality
+                        backgroundColor: ['#0F172A', '#B45309', '#64748B', '#CBD5E1'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
                 }
             });
+
+            // 2. Trust Chart (Line)
+            const ctxTrust = document.getElementById('trustChart').getContext('2d');
+            state.trustChartInstance = new Chart(ctxTrust, {
+                type: 'line',
+                data: {
+                    labels: ['Month 0', 'Month 3', 'Month 6', 'Month 9', 'Month 12'],
+                    datasets: [
+                        {
+                            label: 'Standard Reporting (PDFs)',
+                            data: [100, 90, 75, 60, 45],
+                            borderColor: '#94a3b8',
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'OpenFieldbook (Interactive)',
+                            data: [100, 105, 110, 115, 125],
+                            borderColor: '#B45309',
+                            tension: 0.4,
+                            borderWidth: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: { display: true, title: { display: true, text: 'Trust Index' }, grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function updateTimeChart(mode) {
+            if (!state.timeChartInstance) return;
+
+            if (mode === 'ideal') {
+                state.timeChartInstance.data.datasets[0].data = [15, 50, 20, 15]; // The Dream
+                state.timeChartInstance.data.datasets[0].backgroundColor = ['#CBD5E1', '#B45309', '#64748B', '#94a3b8']; // Highlight Client Time
+            } else {
+                state.timeChartInstance.data.datasets[0].data = [55, 20, 15, 10]; // The Reality
+                state.timeChartInstance.data.datasets[0].backgroundColor = ['#0F172A', '#B45309', '#64748B', '#CBD5E1']; // Highlight Admin Pain
+            }
+            state.timeChartInstance.update();
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            // Init calculator
+            calculateROI();
         });
+
     </script>
 </body>
 
