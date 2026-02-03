@@ -107,6 +107,20 @@
          - NO SVG/Mermaid: All icons are FontAwesome or Unicode. All diagrams implemented via CSS Grid/Flex or Chart.js.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- MailerLite Universal -->
+    <script>
+        (function (w, d, e, u, f, l, n) {
+            w[f] = w[f] || function () {
+                (w[f].q = w[f].q || [])
+                    .push(arguments);
+            }, l = d.createElement(e), l.async = 1, l.src = u,
+                n = d.getElementsByTagName(e)[0], n.parentNode.insertBefore(l, n);
+        })
+            (window, document, 'script', 'https://assets.mailerlite.com/js/universal.js', 'ml');
+        ml('account', '1876641');
+    </script>
+    <!-- End MailerLite Universal -->
 </head>
 
 <body class="antialiased min-h-screen flex flex-col">
@@ -294,19 +308,145 @@
                         </div>
                         <div class="p-8 flex-grow flex flex-col justify-center items-center bg-slate-100"
                             id="tactic-display">
-                            <!-- Dynamic Content Injected Here -->
-                            <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
-                                <h2 class="font-serif text-3xl text-slate-900 mb-4">"Your Clients Are Evaluating Your
-                                    Replacement."</h2>
-                                <p class="text-slate-600 mb-6">While you spend 4 hours on compliance today, an algorithm
-                                    just personalized their portfolio. It's time to fight back.</p>
-                                <button
-                                    class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition">Get
-                                    The Defense Toolkit</button>
+
+                            <!-- Tactic 1: Pattern (Default) -->
+                            <div id="tactic-view-pattern" class="w-full flex flex-col items-center animate-fade-in">
+                                <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
+                                    <h2 class="font-serif text-3xl text-slate-900 mb-4">"Your Clients Are Evaluating
+                                        Your
+                                        Replacement."</h2>
+                                    <p class="text-slate-600 mb-6">While you spend 4 hours on compliance today, an
+                                        algorithm
+                                        just personalized their portfolio. It's time to fight back.</p>
+                                    <div id="toolkit-action-container" class="relative">
+                                        <button id="toolkit-btn" onclick="handleToolkitClick()"
+                                            class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition relative z-10">Get
+                                            The Defense Toolkit</button>
+                                        <div id="toolkit-form-container"
+                                            class="hidden mt-4 animate-fade-in content-center">
+                                            <div class="ml-embedded" data-form="A8aMck"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                                    <span class="font-bold text-amber-600">Why this works:</span> Advisors are terrified
+                                    of
+                                    commoditization. This headline validates their fear immediately, then offers a
+                                    weapon.
+                                </div>
                             </div>
-                            <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
-                                <span class="font-bold text-amber-600">Why this works:</span> Advisors are terrified of
-                                commoditization. This headline validates their fear immediately, then offers a weapon.
+
+                            <!-- Tactic 2: Breadcrumb -->
+                            <div id="tactic-view-bread"
+                                class="hidden w-full flex flex-col items-center animate-fade-in">
+                                <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
+                                    <div id="bread-step-1">
+                                        <div class="mb-4">
+                                            <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
+                                                <div class="h-full bg-amber-500 w-1/2"></div>
+                                            </div>
+                                            <p class="text-xs text-slate-400 mt-1 text-right">Step 1 of 2</p>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-900 mb-4">What's your biggest time sink?
+                                        </h3>
+                                        <div class="space-y-3">
+                                            <label
+                                                class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
+                                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span
+                                                    class="text-slate-700">Compliance & Reporting</span>
+                                            </label>
+                                            <label
+                                                class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
+                                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span
+                                                    class="text-slate-700">Client Prospecting</span>
+                                            </label>
+                                        </div>
+                                        <button onclick="handleBreadcrumbNext()"
+                                            class="mt-6 w-full bg-slate-900 text-white py-2 rounded">Next <i
+                                                class="fa-solid fa-arrow-right ml-2"></i></button>
+                                    </div>
+
+                                    <div id="bread-step-2" class="hidden">
+                                        <div class="mb-4">
+                                            <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
+                                                <div class="h-full bg-amber-500 w-full"></div>
+                                            </div>
+                                            <p class="text-xs text-slate-400 mt-1 text-right">Step 2 of 2</p>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-900 mb-4">Where should we send the
+                                            analysis?
+                                        </h3>
+                                        <div class="ml-embedded" data-form="A8aMck"></div>
+                                        <p id="bread-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                    </div>
+                                </div>
+                                <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                                    <span class="font-bold text-amber-600">Why this works:</span> Asking a low-friction
+                                    question first (Step 1) makes them 4x more likely to enter their email in Step 2.
+                                </div>
+                            </div>
+
+                            <!-- Tactic 3: Velvet Rope -->
+                            <div id="tactic-view-velvet"
+                                class="hidden w-full flex flex-col items-center animate-fade-in">
+                                <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
+                                    <div
+                                        class="inline-block bg-slate-100 px-3 py-1 rounded-full text-xs font-bold text-slate-600 mb-4">
+                                        Beta Access Only</div>
+                                    <h2 class="font-serif text-2xl text-slate-900 mb-4">Join the OpenFieldbook Alpha
+                                        Cohort
+                                    </h2>
+                                    <p class="text-slate-600 mb-6">We are currently accepting 50 advisors for Q1. Secure
+                                        your spot and receive the full Analytics Suite.</p>
+                                    <div id="access-action-container" class="relative">
+                                        <button id="access-btn" onclick="handleAccessRequest()"
+                                            class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition w-full relative z-10">Request
+                                            Access</button>
+                                        <div id="access-form-container"
+                                            class="hidden mt-4 animate-fade-in content-center">
+                                            <div class="ml-embedded" data-form="kKbZKR"></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-slate-400 mt-3">2 spots remaining in your region.</p>
+                                </div>
+                                <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                                    <span class="font-bold text-amber-600">Why this works:</span> Financial advisors
+                                    sell
+                                    "exclusivity" to their clients. They respond well to being treated with exclusivity
+                                    themselves.
+                                </div>
+                            </div>
+
+                            <!-- Tactic 4: Social Proof -->
+                            <div id="tactic-view-social"
+                                class="hidden w-full flex flex-col items-center animate-fade-in">
+                                <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
+                                    <h3 class="font-bold text-lg text-slate-900 mb-4 text-center">The Industry Standard
+                                        vs.
+                                        The Outliers</h3>
+                                    <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
+                                        <div class="text-left">
+                                            <p class="text-xs text-slate-500">Average Advisor</p>
+                                            <p class="font-bold text-red-500">12% Churn / Year</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-xs text-slate-500">OpenFieldbook Advisor</p>
+                                            <p class="font-bold text-green-600">2% Churn / Year</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="bg-slate-50 p-4 rounded text-sm italic text-slate-600 border-l-4 border-slate-300">
+                                        "I stopped sending generic PDFs. My retention doubled when I started sending
+                                        live,
+                                        interactive data."
+                                        <br><span class="text-xs font-bold not-italic mt-2 block">- Sarah Jenkins, RIA
+                                            Managing Partner</span>
+                                    </div>
+                                </div>
+                                <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
+                                    <span class="font-bold text-amber-600">Why this works:</span> Don't just show logos.
+                                    Show the *gap* between the status quo (pain) and the new reality (gain).
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -335,12 +475,20 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Top 10 AI Prompts for Client Retention</h3>
                     <p class="text-sm text-slate-500 mb-4">Copy-paste prompts for ChatGPT/Claude to analyze client
                         sentiment and generate hyper-personalized quarterly updates.</p>
-                    <ul class="text-sm text-slate-600 space-y-2">
+                    <ul class="text-sm text-slate-600 space-y-2 mb-4">
                         <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Saves 3
                             hours/week immediately.</li>
                         <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Low barrier
                             to entry (PDF/Notion).</li>
                     </ul>
+                    <div id="offer-prompts-container" class="relative">
+                        <button id="offer-prompts-btn" onclick="handleOfferClick('Prompts')"
+                            class="w-full bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-900 hover:text-white transition py-2 rounded font-medium relative z-10">Get
+                            The Prompts</button>
+                        <div id="offer-prompts-form" class="hidden mt-4 animate-fade-in content-center">
+                            <div class="ml-embedded" data-form="3TTwhq"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Asset 2 -->
@@ -355,12 +503,20 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">The "Tech Stack" Audit</h3>
                     <p class="text-sm text-slate-500 mb-4">A 5-day email course reviewing the exact tools modern RIAs
                         use to automate back-office work.</p>
-                    <ul class="text-sm text-slate-600 space-y-2">
+                    <ul class="text-sm text-slate-600 space-y-2 mb-4">
                         <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Positions
                             OpenFieldbook as the "hub".</li>
                         <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> High open
                             rates (curiosity gap).</li>
                     </ul>
+                    <div id="offer-audit-container" class="relative">
+                        <button id="offer-audit-btn" onclick="handleOfferClick('Audit')"
+                            class="w-full bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-900 hover:text-white transition py-2 rounded font-medium relative z-10">Start
+                            The Audit</button>
+                        <div id="offer-audit-form" class="hidden mt-4 animate-fade-in content-center">
+                            <div class="ml-embedded" data-form="3TTwhq"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -413,7 +569,7 @@
                         <label class="block text-sm font-medium text-slate-700 mb-2">Annual Revenue ($)</label>
                         <input type="range" id="revenue" min="100000" max="2000000" step="50000" value="500000"
                             class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
-                            oninput="calculateROI()">
+                            oninput="calculateROI('revenue')">
                         <div class="flex justify-between text-xs text-slate-500 mt-1">
                             <span>$100k</span>
                             <span id="revenue-val" class="font-bold text-slate-900">$500,000</span>
@@ -495,85 +651,10 @@
 
         // --- Data Store ---
         const strategyContent = {
-            pattern: {
-                title: "The Pattern Interrupt Header",
-                html: `
-                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
-                        <h2 class="font-serif text-3xl text-slate-900 mb-4">"Your Clients Are Evaluating Your Replacement."</h2>
-                        <p class="text-slate-600 mb-6">While you spend 4 hours on compliance today, an algorithm just personalized their portfolio. It's time to fight back.</p>
-                        <button class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition">Get The Defense Toolkit</button>
-                    </div>
-                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
-                        <span class="font-bold text-amber-600">Why this works:</span> Advisors are terrified of commoditization. This headline validates their fear immediately, then offers a weapon.
-                    </div>
-                `
-            },
-            bread: {
-                title: "The Breadcrumb Form",
-                html: `
-                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
-                        <div class="mb-4">
-                            <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-amber-500 w-1/2"></div>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-1 text-right">Step 1 of 2</p>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 mb-4">What's your biggest time sink?</h3>
-                        <div class="space-y-3">
-                            <label class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
-                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span class="text-slate-700">Compliance & Reporting</span>
-                            </label>
-                            <label class="flex items-center p-3 border border-slate-200 rounded cursor-pointer hover:bg-slate-50">
-                                <input type="radio" name="sink" class="mr-3 accent-slate-900"> <span class="text-slate-700">Client Prospecting</span>
-                            </label>
-                        </div>
-                        <button class="mt-6 w-full bg-slate-900 text-white py-2 rounded">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                    </div>
-                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
-                        <span class="font-bold text-amber-600">Why this works:</span> Asking a low-friction question first (Step 1) makes them 4x more likely to enter their email in Step 2.
-                    </div>
-                `
-            },
-            velvet: {
-                title: "The Velvet Rope",
-                html: `
-                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200 text-center">
-                        <div class="inline-block bg-slate-100 px-3 py-1 rounded-full text-xs font-bold text-slate-600 mb-4">Beta Access Only</div>
-                        <h2 class="font-serif text-2xl text-slate-900 mb-4">Join the OpenFieldbook Alpha Cohort</h2>
-                        <p class="text-slate-600 mb-6">We are currently accepting 50 advisors for Q1. Secure your spot and receive the full Analytics Suite.</p>
-                        <button class="bg-slate-900 text-white px-6 py-3 rounded hover:bg-slate-800 transition w-full">Request Access</button>
-                        <p class="text-xs text-slate-400 mt-3">2 spots remaining in your region.</p>
-                    </div>
-                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
-                        <span class="font-bold text-amber-600">Why this works:</span> Financial advisors sell "exclusivity" to their clients. They respond well to being treated with exclusivity themselves.
-                    </div>
-                `
-            },
-            social: {
-                title: "Inverted Social Proof",
-                html: `
-                    <div class="bg-white w-full max-w-lg shadow-xl p-8 border border-slate-200">
-                        <h3 class="font-bold text-lg text-slate-900 mb-4 text-center">The Industry Standard vs. The Outliers</h3>
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
-                            <div class="text-left">
-                                <p class="text-xs text-slate-500">Average Advisor</p>
-                                <p class="font-bold text-red-500">12% Churn / Year</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-xs text-slate-500">OpenFieldbook Advisor</p>
-                                <p class="font-bold text-green-600">2% Churn / Year</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded text-sm italic text-slate-600 border-l-4 border-slate-300">
-                            "I stopped sending generic PDFs. My retention doubled when I started sending live, interactive data."
-                            <br><span class="text-xs font-bold not-italic mt-2 block">- Sarah Jenkins, RIA Managing Partner</span>
-                        </div>
-                    </div>
-                    <div class="mt-8 text-sm text-slate-500 max-w-md text-center">
-                        <span class="font-bold text-amber-600">Why this works:</span> Don't just show logos. Show the *gap* between the status quo (pain) and the new reality (gain).
-                    </div>
-                `
-            }
+            pattern: { title: "The Pattern Interrupt Header" },
+            bread: { title: "The Breadcrumb Form" },
+            velvet: { title: "The Velvet Rope" },
+            social: { title: "Inverted Social Proof" }
         };
 
         // --- Navigation ---
@@ -606,25 +687,167 @@
 
         // --- Tactic Viewer ---
         function showTactic(key) {
-            // Update text/html
+            // Update Title
             document.getElementById('tactic-title').innerText = strategyContent[key].title;
-            document.getElementById('tactic-display').innerHTML = strategyContent[key].html;
 
-            // Update Active Class
+            // Hide all tactic views
+            ['pattern', 'bread', 'velvet', 'social'].forEach(id => {
+                document.getElementById(`tactic-view-${id}`).classList.add('hidden');
+            });
+
+            // Show selected view
+            document.getElementById(`tactic-view-${key}`).classList.remove('hidden');
+
+            // Update Active Sidebar Class
             document.querySelectorAll('.tactic-card').forEach(card => {
                 card.classList.remove('border-slate-900', 'bg-slate-50');
                 card.classList.add('border-transparent');
             });
             const activeCard = document.querySelector(`.tactic-card[data-tactic="${key}"]`);
-            activeCard.classList.remove('border-transparent');
-            activeCard.classList.add('border-slate-900', 'bg-slate-50');
+            if (activeCard) {
+                activeCard.classList.remove('border-transparent');
+                activeCard.classList.add('border-slate-900', 'bg-slate-50');
+            }
+        }
+
+        // --- Form Handlers & Logic ---
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email || !re.test(email)) return { valid: false, msg: "Please enter a valid email address." };
+            if (email.toLowerCase().endsWith('@gmail.com')) return { valid: false, msg: "Business Email Required: Please use your company email address, not Gmail." };
+            return { valid: true };
+        }
+
+        function submitToMailerlite(email, source) {
+            // Placeholder for actual Mailerlite integration
+            // In a production environment, this would be a POST request to your Mailerlite API or Webook
+            console.log(`Submitting ${email} from ${source} to Mailerlite...`);
+
+            // Simulating network delay then redirecting
+            const buttonMap = {
+                'Toolkit': document.querySelector('#toolkit-action-container button'),
+                'Breadcrumb': document.querySelector('#bread-step-2 button'),
+                'Beta Access': document.querySelector('#access-action-container button')
+            };
+
+            let btn = buttonMap[source];
+            if (btn) {
+                btn.innerText = 'Submitting...';
+                btn.disabled = true;
+            }
+
+            setTimeout(() => {
+                window.location.href = "https://openfieldbook.com/foradvisors";
+            }, 800);
+        }
+
+        function handleToolkitClick() {
+            // Toggle visibility instead of injecting HTML
+            const btn = document.getElementById('toolkit-btn');
+            const formContainer = document.getElementById('toolkit-form-container');
+
+            if (btn && formContainer) {
+                btn.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+            }
+        }
+
+        function handleToolkitSubmit() {
+            const email = document.getElementById('toolkit-email').value;
+            const validation = validateEmail(email);
+            const errorEl = document.getElementById('toolkit-error');
+            if (!validation.valid) {
+                errorEl.innerText = validation.msg;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            submitToMailerlite(email, 'Toolkit');
+        }
+
+        function handleBreadcrumbNext() {
+            document.getElementById('bread-step-1').classList.add('hidden');
+            document.getElementById('bread-step-2').classList.remove('hidden');
+        }
+
+        function handleBreadcrumbSubmit() {
+            const email = document.getElementById('bread-email').value;
+            const validation = validateEmail(email);
+            const errorEl = document.getElementById('bread-error');
+            if (!validation.valid) {
+                errorEl.innerText = validation.msg;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            submitToMailerlite(email, 'Breadcrumb');
+        }
+
+        function handleAccessRequest() {
+            // Toggle visibility instead of injecting HTML
+            const btn = document.getElementById('access-btn');
+            const formContainer = document.getElementById('access-form-container');
+
+            if (btn && formContainer) {
+                btn.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+            }
+        }
+
+        function handleAccessSubmit() {
+            const email = document.getElementById('access-email').value;
+            const validation = validateEmail(email);
+            const errorEl = document.getElementById('access-error');
+            if (!validation.valid) {
+                errorEl.innerText = validation.msg;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            submitToMailerlite(email, 'Beta Access');
+        }
+
+        function handleOfferClick(type) {
+            // Toggle visibility instead of injecting HTML
+            const btnId = type === 'Prompts' ? 'offer-prompts-btn' : 'offer-audit-btn';
+            const formId = type === 'Prompts' ? 'offer-prompts-form' : 'offer-audit-form';
+
+            const btn = document.getElementById(btnId);
+            const formContainer = document.getElementById(formId);
+
+            if (btn && formContainer) {
+                btn.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+            }
+        }
+
+        function handleOfferSubmit(type) {
+            const email = document.getElementById(`offer-${type}-email`).value;
+            const validation = validateEmail(email);
+            const errorEl = document.getElementById(`offer-${type}-error`);
+
+            if (!validation.valid) {
+                errorEl.innerText = validation.msg;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            submitToMailerlite(email, `Offer: ${type}`);
         }
 
         // --- ROI Calculator Logic ---
-        function calculateROI() {
-            const revenue = parseInt(document.getElementById('revenue').value);
-            const hours = parseInt(document.getElementById('hours').value);
-            const rate = parseInt(document.getElementById('rate').value);
+        function calculateROI(trigger) {
+            const revenueInput = document.getElementById('revenue');
+            const hoursInput = document.getElementById('hours');
+            const rateInput = document.getElementById('rate');
+
+            // Logic: Link Rate to Revenue if Revenue is changed
+            if (trigger === 'revenue') {
+                const derivedRate = Math.round(parseInt(revenueInput.value) / 2000);
+                // Clamp derived rate to slider bounds
+                const clampedRate = Math.max(100, Math.min(1000, derivedRate));
+                rateInput.value = clampedRate;
+            }
+
+            const revenue = parseInt(revenueInput.value);
+            const hours = parseInt(hoursInput.value);
+            const rate = parseInt(rateInput.value);
 
             // Update UI Labels
             document.getElementById('revenue-val').innerText = '$' + revenue.toLocaleString();
